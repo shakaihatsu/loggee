@@ -1,4 +1,4 @@
-loggee
+Loggee
 ======
 
-Description of loggee
+Description of Loggee
