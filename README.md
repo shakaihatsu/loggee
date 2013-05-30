@@ -115,6 +115,8 @@ There are a couple of ways to configure Loggee:
   - _parameterLoggerBaseName_ - Logger base name for parameters of regular methods - Default: __"PARAMETER"__
   - _decisionParameterLoggerBaseName_ - Logger base name for parameters of decision methods - Default: __"PARAMETER"__
   - _booleanMethodLogPolicy_ - How to treat boolean methods - Default: __DECISION__
+  - _logMethodParametersAfterCall_ - Log regular method parameters after the call again? - Default: __false__
+  - _trim_ - Trim any log message to this number of characters - Default: __500__ (Doesn't trim if set to 0)
 2. Define own ```loggee.api.LogLineFormatter```.
   You can implement this interface to decorate the message being logged. (Simply implement it, Loggee will automatically
   use it instead of the default one.)
