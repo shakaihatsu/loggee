@@ -12,7 +12,7 @@ Usint AOP techniques, with a well designed codebase, it is capable of logging al
 application may need to be logged.
 
 Using CDI itself, the current implementation of Loggee supports only other applications that also use CDI.
-Loggee uses slf4j as backing logging framework.
+Loggee uses slf4j as the backing logging framework.
 
 How to install
 --------------
