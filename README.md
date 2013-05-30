@@ -140,7 +140,7 @@ can't do much about it by itself, using the Decision Bean Pattern can help you l
 important decisions _inside_ your methods.
 
 How? It's a good practice to wrap any composite expression inside an _if_ statement and extract it into a local method
-call. Simply make another step forward and extract such expressions (no matter how simple they are) into another bean.
+call. Simply take another step forward and extract such expressions (no matter how simple they are) into another bean.
 We can call this bean a Decision Bean. This Decision Bean can be annotated with _@Logged_, injected into your original
 class, and now Loggee will be able to log these decisions taking place inside your method!
 
