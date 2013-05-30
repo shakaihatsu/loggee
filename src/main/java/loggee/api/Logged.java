@@ -11,7 +11,6 @@ import javax.interceptor.InterceptorBinding;
 
 import loggee.dependent.slf4j.api.ELogLevel;
 
-
 @InterceptorBinding
 @Inherited
 @Target({ ElementType.TYPE, ElementType.METHOD })
@@ -34,6 +33,9 @@ public @interface Logged {
 
     @Nonbinding
     String parameterLoggerBaseName() default "PARAMETER";
+
+    @Nonbinding
+    String decisionParameterLoggerBaseName() default "PARAMETER";
 
     @Nonbinding
     EMethodLogPolicy booleanMethodLogPolicy() default EMethodLogPolicy.DECISION;

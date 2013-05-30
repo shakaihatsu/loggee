@@ -11,10 +11,9 @@ import loggee.dependent.slf4j.api.ELogLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class MethodLoggerImpl implements MethodLogger {
-    private static final String PARAMETER_CALL_BEGINNING_LOG_MARKER = "STARTED ";
-    private static final String PARAMETER_CALL_ENDING_LOG_MARKER = "FINISHED ";
+    private static final String METHOD_CALL_BEGINNING_LOG_MARKER = "STARTED ";
+    private static final String METHOD_CALL_ENDING_LOG_MARKER = "FINISHED ";
 
     @Inject
     protected LogHelper logHelper;
@@ -50,30 +49,30 @@ public class MethodLoggerImpl implements MethodLogger {
         try {
             boolean logMethodParametersAfterCall = loggedAnnotation.logMethodParametersAfterCall();
 
-            String preMethodCallParameterLogPrefix;
-            String postMethodCallParameterLogPrefix;
+            String preMethodCallLogPrefix;
+            String postMethodCallLogPrefix;
             if (logMethodParametersAfterCall) {
-                preMethodCallParameterLogPrefix = PARAMETER_CALL_BEGINNING_LOG_MARKER;
-                postMethodCallParameterLogPrefix = PARAMETER_CALL_ENDING_LOG_MARKER;
+                preMethodCallLogPrefix = METHOD_CALL_BEGINNING_LOG_MARKER;
+                postMethodCallLogPrefix = METHOD_CALL_ENDING_LOG_MARKER;
             } else {
-                preMethodCallParameterLogPrefix = "";
-                postMethodCallParameterLogPrefix = "";
+                preMethodCallLogPrefix = "";
+                postMethodCallLogPrefix = "";
             }
 
-            logHelper.log(logLevel, baseLogger, PARAMETER_CALL_BEGINNING_LOG_MARKER + methodInvocationAsString, ctx);
-            logHelper.logParameters(parameterLogLevel, parameterLogger, preMethodCallParameterLogPrefix + methodInvocationAsString, ctx.getParameters(), trim,
-                    ctx);
+            logHelper.log(logLevel, baseLogger, METHOD_CALL_BEGINNING_LOG_MARKER + methodInvocationAsString, ctx);
+            logHelper.logParameters(parameterLogLevel, parameterLogger, preMethodCallLogPrefix + methodInvocationAsString, ctx.getParameters(), trim, ctx);
 
             Object result = ctx.proceed();
 
             long durationInMs = logHelper.calculateDuration(start);
 
-            logHelper.log(logLevel, baseLogger,
-                    PARAMETER_CALL_ENDING_LOG_MARKER + methodInvocationAsString + " in " + durationInMs + "ms : " + logHelper.getObjectAsString(result, trim),
-                    ctx);
+            logHelper
+                    .log(logLevel,
+                            baseLogger,
+                            METHOD_CALL_ENDING_LOG_MARKER + methodInvocationAsString + " in " + durationInMs + "ms : "
+                                    + logHelper.getObjectAsString(result, trim), ctx);
             if (logMethodParametersAfterCall) {
-                logHelper.logParameters(parameterLogLevel, parameterLogger, postMethodCallParameterLogPrefix + methodInvocationAsString, ctx.getParameters(),
-                        trim, ctx);
+                logHelper.logParameters(parameterLogLevel, parameterLogger, postMethodCallLogPrefix + methodInvocationAsString, ctx.getParameters(), trim, ctx);
             }
 
             return result;
@@ -99,7 +98,7 @@ public class MethodLoggerImpl implements MethodLogger {
 
         Logger baseLogger = LoggerFactory.getLogger(logHelper.buildLoggerName(loggedAnnotation.decisionMethodLoggerBaseName(), targetClassName));
 
-        Logger parameterLogger = LoggerFactory.getLogger(logHelper.buildLoggerName(loggedAnnotation.parameterLoggerBaseName(),
+        Logger parameterLogger = LoggerFactory.getLogger(logHelper.buildLoggerName(loggedAnnotation.decisionParameterLoggerBaseName(),
                 loggedAnnotation.decisionMethodLoggerBaseName(), targetClassName));
 
         Object outcome = ctx.proceed();

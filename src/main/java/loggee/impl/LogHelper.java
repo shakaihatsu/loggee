@@ -1,6 +1,7 @@
 package loggee.impl;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,7 +19,6 @@ import loggee.impl.def.DefaultLogLineFormatter;
 import loggee.impl.spec.ModulePrivate;
 
 import org.slf4j.Logger;
-
 
 @ApplicationScoped
 public class LogHelper {
@@ -65,15 +65,29 @@ public class LogHelper {
         if (loggerNames != null && loggerNames.length > 0) {
             List<String> loggerNameList = new LinkedList<String>(Arrays.asList(loggerNames));
 
-            loggerNameBuilder = new StringBuilder(loggerNameList.remove(0));
-            for (String loggerName : loggerNameList) {
-                loggerNameBuilder.append(LOGGER_DELIMITER).append(loggerName);
+            Iterator<String> loggerNameListIterator = loggerNameList.iterator();
+
+            loggerNameBuilder = new StringBuilder();
+            while(loggerNameListIterator.hasNext()) {
+                String loggerName = loggerNameListIterator.next();
+
+                if (loggerName == null || loggerName.isEmpty()) {
+                    continue;
+                }
+
+                loggerNameBuilder.append(loggerName);
+
+                if (loggerNameListIterator.hasNext()) {
+                    loggerNameBuilder.append(LOGGER_DELIMITER);
+                }
             }
         } else {
             throw new NullPointerException();
         }
 
-        return loggerNameBuilder.toString();
+        String loggerName = loggerNameBuilder.toString();
+
+        return loggerName;
     }
 
     void log(ELogLevel logLevel, Logger logger, String logMessage, InvocationContext invocationContext) {
