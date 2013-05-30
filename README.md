@@ -107,18 +107,92 @@ Configuration
 There are a couple of ways to configure Loggee:
 
 1. Configure the ```loggee.api.Logged``` annotation
-  - logLevel - Log level for regular methods - Default: DEBUG
-  - parameterLogLevel - Log level for parameters - Default: DEBUG
-  - failureLogLevel - Log level for when the method throws an exception - Default: WARN
-  - regularMethodLoggerBaseName - Logger base name for regular methods - Default: "METHOD_CALL"
-  - decisionMethodLoggerBaseName - Logger base name for decision methods - Default: "DECISION"
-  - parameterLoggerBaseName - Logger base name for parameters of regular methods - Default: "PARAMETER"
-  - decisionParameterLoggerBaseName - Logger base name for parameters of decision methods - Default: "PARAMETER"
-  - booleanMethodLogPolicy - How to treat boolean methods - Default: DECISION
+  - _logLevel_ - Log level for regular methods - Default: __DEBUG__
+  - _parameterLogLevel_ - Log level for parameters - Default: __DEBUG__
+  - _failureLogLevel_ - Log level for when the method throws an exception - Default: __WARN__
+  - _regularMethodLoggerBaseName_ - Logger base name for regular methods - Default: __"METHOD_CALL"__
+  - _decisionMethodLoggerBaseName_ - Logger base name for decision methods - Default: __"DECISION"__
+  - _parameterLoggerBaseName_ - Logger base name for parameters of regular methods - Default: __"PARAMETER"__
+  - _decisionParameterLoggerBaseName_ - Logger base name for parameters of decision methods - Default: __"PARAMETER"__
+  - _booleanMethodLogPolicy_ - How to treat boolean methods - Default: __DECISION__
 2. Define own ```loggee.api.LogLineFormatter```.
   You can implement this interface to decorate the message being logged. (Simply implement it, Loggee will automatically
-  use this instead of the default one.)
+  use it instead of the default one.)
 3. Define own ```loggee.api.LoggerProducer```.
   With this you can tell Loggee how to produce ```org.slf4j.Logger``` instances. (Again, simply implement it, Loggee will automatically
-  use this instead of the default one.)
+  use it instead of the default one.)
+
+Decision Bean Pattern
+---------------------
+
+Logging at the start and end of method calls are fine but what about the inside of the methods? Although Loggee really
+can't do much about it by itself, using the Decision Bean Pattern can help you leverage Loggee's capabilities in logging
+important decisions _inside_ your methods.
+
+How? It's a good practice to wrap any composite expression inside an _if_ statement and extract it into a local method
+call. Simply make another step forward and extract such expressions (no matter how simple they are) into another bean.
+We can call this bean a Decision Bean. This Decision Bean can be annotated with _@Logged_, injected into your original
+class, and now Loggee will be able to log these decisions taking place inside your method!
+
+Here's an example:
+
+A service class:
+```java
+package my.pack;
+
+import javax.inject.Inject;
+
+import loggee.api.Logged;
+import my.pack.decision.MyDecisionService;
+
+@Logged
+public class MyService {
+    @Inject
+    private MyDecisionService myDecisionService;
+
+    public void doSomething(Object input) {
+        if (myDecisionService.firstDecisionBasedOnInput(input)) {
+            // Do something
+        } else if (myDecisionService.secondDecisionBasedOnInput(input)) {
+            // Do something else
+        }
+    }
+}
+```
+
+A __decision bean__ for the previous class:
+```java
+package my.pack.decision;
+
+import loggee.api.Logged;
+
+@Logged
+public class MyDecisionService {
+
+    public boolean firstDecisionBasedOnInput(Object input) {
+        // Make the decision
+        return false;
+    }
+
+    public boolean secondDecisionBasedOnInput(Object input) {
+        // Make the decision
+        return true;
+    }
+
+}
+```
+
+Log output:
+
+```
+12:00:00,001 DEBUG [METHOD_CALL.my.pack.MyService] (http-localhost-127.0.0.1-8080-1) STARTED MyService.doSomething
+12:00:00,001 DEBUG [PARAMETER.METHOD_CALL.my.pack.MyService] (http-localhost-127.0.0.1-8080-1) MyService.doSomething 0 : java.lang.Object@1b4caafa
+12:00:00,001 DEBUG [DECISION.my.pack.decision.MyDecisionService] (http-localhost-127.0.0.1-8080-1) MyDecisionService.firstDecisionBasedOnInput false
+12:00:00,001 DEBUG [PARAMETER.DECISION.my.pack.decision.MyDecisionService] (http-localhost-127.0.0.1-8080-1) MyDecisionService.firstDecisionBasedOnInput 0 : java.lang.Object@1b4caafa
+12:00:00,001 DEBUG [DECISION.my.pack.decision.MyDecisionService] (http-localhost-127.0.0.1-8080-1) MyDecisionService.secondDecisionBasedOnInput true
+12:00:00,001 DEBUG [PARAMETER.DECISION.my.pack.decision.MyDecisionService] (http-localhost-127.0.0.1-8080-1) MyDecisionService.secondDecisionBasedOnInput 0 : java.lang.Object@1b4caafa
+12:00:00,001 DEBUG [METHOD_CALL.my.pack.MyService] (http-localhost-127.0.0.1-8080-1) FINISHED MyService.doSomething in 3ms : NULL
+```
+
+
 
