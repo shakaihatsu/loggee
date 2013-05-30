@@ -17,6 +17,6 @@
         http://java.sun.com/xml/ns/javaee 
         http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
 	<interceptors>
-		<class>loggee.api.MethodLoggingInterceptor</class>
+		<class>loggee.api.LoggeeInterceptor</class>
 	</interceptors>
 </beans>

@@ -7,7 +7,7 @@ import javax.interceptor.InvocationContext;
 
 @Logged
 @Interceptor
-public class MethodLoggingInterceptor {
+public class LoggeeInterceptor {
     @Inject
     protected MethodLogger methodLogger;
 
