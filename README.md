@@ -24,7 +24,8 @@ How to use
 ----------
 
 1. Add Loggee as a Maven dependency
-2. Add ```loggee.api.LoggeeInterceptor``` to your ```beans.xml``` as an interceptor, like this:
+2. Add a provider for slf4j as a Maven dependency
+3. Add ```loggee.api.LoggeeInterceptor``` to your ```beans.xml``` as an interceptor, like this:
 ```xml
 <?xml version="1.0"?>
 <beans xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -35,7 +36,7 @@ How to use
       </interceptors>
 </beans>
 ```
-3. Annotate your class or your method with ```loggee.api.Logged```, like this:
+4. Annotate your class or your method with ```loggee.api.Logged```, like this:
   ```java
   @Logged
   public class MyClass {
