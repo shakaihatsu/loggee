@@ -81,7 +81,8 @@ Stacktrace here
 ```
 
 The log lines are prefixed with __METHOD_CALL__, __PARAMETER.METHOD_CALL__, __DECISION__ or __PARAMETER.DECISION__,
-depending what is being logged. This is to help configure logging for these kind of logs universally.
+depending what is being logged. This is to help configure logging for these kind of logs universally. You can make
+Loggee to omit this prefixes if you want (see Configuration).
 
 Additional features
 -------------------
@@ -111,18 +112,24 @@ There are a couple of ways to configure Loggee:
   - _parameterLogLevel_ - Log level for parameters - Default: __DEBUG__
   - _failureLogLevel_ - Log level for when the method throws an exception - Default: __WARN__
   - _regularMethodLoggerBaseName_ - Logger base name for regular methods - Default: __"METHOD_CALL"__
+      - Setting this to "" (empty string) will make Loggee use the original logger.
   - _decisionMethodLoggerBaseName_ - Logger base name for decision methods - Default: __"DECISION"__
+      - Setting this to "" (empty string) will make Loggee use the original logger.
   - _parameterLoggerBaseName_ - Logger base name for parameters of regular methods - Default: __"PARAMETER"__
+      - Setting this to "" (empty string) will make Loggee use the regular or decision method logger.
+      - Setting both to "" (empty string) will make Loggee use the original logger.
   - _decisionParameterLoggerBaseName_ - Logger base name for parameters of decision methods - Default: __"PARAMETER"__
+      - Setting this to "" (empty string) will make Loggee use the regular or decision method logger.
+      - Setting both to "" (empty string) will make Loggee use the original logger.
   - _booleanMethodLogPolicy_ - How to treat boolean methods - Default: __DECISION__
   - _logMethodParametersAfterCall_ - Log regular method parameters after the call again? - Default: __false__
   - _trim_ - Trim any log message to this number of characters - Default: __500__ (Doesn't trim if set to 0)
 2. Define own ```loggee.api.LogLineFormatter```.
-  You can implement this interface to decorate the message being logged. (Simply implement it, Loggee will automatically
-  use it instead of the default one.)
+  - You can implement this interface to decorate the message being logged. (Simply implement it, Loggee will automatically
+      use it instead of the default one.)
 3. Define own ```loggee.api.LoggerProducer```.
-  With this you can tell Loggee how to produce ```org.slf4j.Logger``` instances. (Again, simply implement it, Loggee will automatically
-  use it instead of the default one.)
+  - With this you can tell Loggee how to produce ```org.slf4j.Logger``` instances. (Again, simply implement it, Loggee will automatically 
+      use it instead of the default one.)
 
 Decision Bean Pattern
 ---------------------
