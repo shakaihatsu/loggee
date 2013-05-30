@@ -62,9 +62,9 @@ methods differently:
     1. __Return value__
     2. __Parameters__
     
-This means that by default, decision methods are logged only after they are called. This behaviour can be changed,
-telling Loggee to consider a boolean method (or all the boolean methods of class, depending where you put the _@Logged_
-annotation) as "regular" (see Configuration).
+By default, decision methods are logged only after they are called. This behaviour can be changed, telling Loggee to
+consider a boolean method (or all the boolean methods of a class, depending where you put the _@Logged_ annotation)
+as _"regular"_ (see Configuration).
 
 Example output:
 
