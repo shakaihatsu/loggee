@@ -24,7 +24,7 @@ How to use
 ----------
 
 1. Add Loggee as a Maven dependency
-2. Add a provider for _slf4j_ as a Maven dependency
+2. Add a provider for _slf4j_ as a Maven dependency, unless your container (e.g. application server) does this for you
 3. Add ```loggee.api.LoggeeInterceptor``` to your ```beans.xml``` as an interceptor, like this:
 ```xml
 <?xml version="1.0"?>
