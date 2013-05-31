@@ -219,5 +219,3 @@ Log output:
 12:00:00,001 DEBUG [METHOD_CALL.my.pack.MyService] (http-localhost-127.0.0.1-8080-1) FINISHED MyService.doSomething in 3ms : NULL
 ```
 
-
-
