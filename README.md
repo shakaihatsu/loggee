@@ -3,6 +3,20 @@ Loggee
 
 Automatic Logging Solution For Java EE Applications
 
+Quick view
+----------
+```
+12:00:00,001 DEBUG [METHOD_CALL.fully.qualified.name.of.MyClass] (http-localhost-127.0.0.1-8080-1) STARTED MyClass.doSomething
+12:00:00,001 DEBUG [PARAMETER.METHOD_CALL.fully.qualified.name.of.MyClass] (http-localhost-127.0.0.1-8080-1) MyClass.doSomething 0 : some_string
+12:00:00,001 DEBUG [PARAMETER.METHOD_CALL.fully.qualified.name.of.MyClass] (http-localhost-127.0.0.1-8080-1) MyClass.doSomething 1 : 10
+12:00:00,001 DEBUG [METHOD_CALL.fully.qualified.name.of.MyClass] (http-localhost-127.0.0.1-8080-1) FINISHED MyClass.doSomething in 2ms : java.lang.Object@1d0688bf
+12:00:00,001 DEBUG [DECISION.fully.qualified.name.of.MyClass] (http-localhost-127.0.0.1-8080-1) MyClass.isItOkay true
+12:00:00,001 DEBUG [PARAMETER.DECISION.fully.qualified.name.of.MyClass] (http-localhost-127.0.0.1-8080-1) MyClass.isItOkay 0 : some_other_string
+12:00:00,001 DEBUG [METHOD_CALL.fully.qualified.name.of.MyClass] (http-localhost-127.0.0.1-8080-1) STARTED MyClass.failingMethod
+12:00:00,001 WARN  [METHOD_CALL.fully.qualified.name.of.MyClass] (http-localhost-127.0.0.1-8080-1) FAILED MyClass.failingMethod in 0ms
+Stacktrace here
+```
+
 Overview
 --------
 
