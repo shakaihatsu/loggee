@@ -1,4 +1,4 @@
-Loggee
+LoggEE
 ======
 
 Automatic Logging Solution For Java EE Applications
@@ -20,24 +20,24 @@ Stacktrace here
 Overview
 --------
 
-Loggee is a simple yet powerful, light-weight, easy-to-use, highly customizable automatic logging module that can take
+LoggEE is a simple yet powerful, light-weight, easy-to-use, highly customizable automatic logging module that can take
 care of the very important yet troublesome task of logging in your Java EE application.
 Usint AOP techniques, with a well designed codebase, it is capable of logging almost anything and everything your
 application may need to be logged.
 
-Using CDI itself, the current implementation of Loggee supports only other applications that also use CDI.
-Loggee uses slf4j as the backing logging framework.
+Using CDI itself, the current implementation of LoggEE supports only other applications that also use CDI.
+LoggEE uses slf4j as the backing logging framework.
 
 How to install
 --------------
 
-Loggee is a Maven project. Once it has been cloned, it can be installed into any Maven repository and then added
+LoggEE is a Maven project. Once it has been cloned, it can be installed into any Maven repository and then added
 as a dependency into any other Maven project.
 
 How to use
 ----------
 
-1. Add Loggee as a Maven dependency
+1. Add LoggEE as a Maven dependency
 2. Add a provider for _slf4j_ as a Maven dependency, unless your container (e.g. application server) does this for you
 3. Add ```loggee.api.LoggeeInterceptor``` to your ```beans.xml``` as an interceptor, like this:
 ```xml
@@ -66,7 +66,7 @@ How to use
 The output
 ----------
 
-Loggee actually logs method calls, handling boolean (referenced as _"decision"_) and other (referenced as _"regular"_)
+LoggEE actually logs method calls, handling boolean (referenced as _"decision"_) and other (referenced as _"regular"_)
 methods differently:
   - Regular methods
     1. __Start__ of the method
@@ -78,7 +78,7 @@ methods differently:
     1. __Return value__
     2. __Parameters__
     
-By default, decision methods are logged only after they are called. This behaviour can be changed, telling Loggee to
+By default, decision methods are logged only after they are called. This behaviour can be changed, telling LoggEE to
 consider a boolean method (or all the boolean methods of a class, depending where you put the _@Logged_ annotation)
 as _"regular"_ (see Configuration).
 
@@ -98,12 +98,12 @@ Stacktrace here
 
 The log lines are prefixed with __METHOD_CALL__, __PARAMETER.METHOD_CALL__, __DECISION__ or __PARAMETER.DECISION__,
 depending what is being logged. This is to help configure logging for these kind of logs universally. You can make
-Loggee to omit this prefixes if you want (see Configuration).
+LoggEE to omit this prefixes if you want (see Configuration).
 
 Additional features
 -------------------
 
-Loggee also provides ```org.slf4j.Logger``` loggers, so you can simply inject them into your managed beans like this:
+LoggEE also provides ```org.slf4j.Logger``` loggers, so you can simply inject them into your managed beans like this:
 
 ```java
 import javax.inject.Inject;
@@ -115,49 +115,49 @@ public class MyClass {
 ```
 
 (Please keep in mind that this may be a restriction as well, in case you want to make your own producer of
-```org.slf4j.Logger``` instances. For this reason, Loggee can be configured how to produce ```org.slf4j.Logger```.
+```org.slf4j.Logger``` instances. For this reason, LoggEE can be configured how to produce ```org.slf4j.Logger```.
 See Configuration.)
 
 Configuration
 -------------
 
-There are a couple of ways to configure Loggee:
+There are a couple of ways to configure LoggEE:
 
 1. Configure the ```loggee.api.Logged``` annotation
   - _logLevel_ - Log level for regular methods - Default: __DEBUG__
   - _parameterLogLevel_ - Log level for parameters - Default: __DEBUG__
   - _failureLogLevel_ - Log level for when the method throws an exception - Default: __WARN__
   - _regularMethodLoggerBaseName_ - Logger base name for regular methods - Default: __"METHOD_CALL"__
-      - Setting this to "" (empty string) will make Loggee use the original logger.
+      - Setting this to "" (empty string) will make LoggEE use the original logger.
   - _decisionMethodLoggerBaseName_ - Logger base name for decision methods - Default: __"DECISION"__
-      - Setting this to "" (empty string) will make Loggee use the original logger.
+      - Setting this to "" (empty string) will make LoggEE use the original logger.
   - _parameterLoggerBaseName_ - Logger base name for parameters of regular methods - Default: __"PARAMETER"__
-      - Setting this to "" (empty string) will make Loggee use the regular or decision method logger.
-      - Setting both to "" (empty string) will make Loggee use the original logger.
+      - Setting this to "" (empty string) will make LoggEE use the regular or decision method logger.
+      - Setting both to "" (empty string) will make LoggEE use the original logger.
   - _decisionParameterLoggerBaseName_ - Logger base name for parameters of decision methods - Default: __"PARAMETER"__
-      - Setting this to "" (empty string) will make Loggee use the regular or decision method logger.
-      - Setting both to "" (empty string) will make Loggee use the original logger.
+      - Setting this to "" (empty string) will make LoggEE use the regular or decision method logger.
+      - Setting both to "" (empty string) will make LoggEE use the original logger.
   - _booleanMethodLogPolicy_ - How to treat boolean methods - Default: __DECISION__
   - _logMethodParametersAfterCall_ - Log regular method parameters after the call again? - Default: __false__
   - _trim_ - Trim any log message to this number of characters - Default: __500__ (Doesn't trim if set to 0)
 2. Define own ```loggee.api.LogLineFormatter```.
-  - You can implement this interface to decorate the message being logged. (Simply implement it, Loggee will automatically
+  - You can implement this interface to decorate the message being logged. (Simply implement it, LoggEE will automatically
       use it instead of the default one.)
 3. Define own ```loggee.api.LoggerProducer```.
-  - With this you can tell Loggee how to produce ```org.slf4j.Logger``` instances. (Again, simply implement it, Loggee will automatically 
+  - With this you can tell LoggEE how to produce ```org.slf4j.Logger``` instances. (Again, simply implement it, LoggEE will automatically 
       use it instead of the default one.)
 
 Decision Bean Pattern
 ---------------------
 
-Logging at the start and end of method calls are fine but what about the inside of the methods? Although Loggee really
-can't do much about it by itself, using the Decision Bean Pattern can help you leverage Loggee's capabilities in logging
+Logging at the start and end of method calls are fine but what about the inside of the methods? Although LoggEE really
+can't do much about it by itself, using the Decision Bean Pattern can help you leverage LoggEE's capabilities in logging
 important decisions _inside_ your methods.
 
 How? It's a good practice to wrap any composite expression inside an _if_ statement and extract it into a local method
 call. Simply take another step forward and extract such expressions (no matter how simple they are) into another bean.
 We can call this bean a Decision Bean. This Decision Bean can be annotated with _@Logged_, injected into your original
-class, and now Loggee will be able to log these decisions taking place inside your method!
+class, and now LoggEE will be able to log these decisions taking place inside your method!
 
 Here's an example:
 
