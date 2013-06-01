@@ -23,8 +23,8 @@ Overview
 LoggEE is a simple, easy-to-use, highly customizable automatic logging module which can significantly lower the number
 of log statements sprinkled throughout the code by automatically logging method calls using AOP techniques.
 
-Using CDI itself, the current implementation of LoggEE supports only other applications that also use CDI.
-LoggEE uses slf4j as the backing logging framework.
+Using CDI itself, the current implementation of LoggEE can be use in applications that also use CDI. LoggEE uses _slf4j_
+as the backing logging framework.
 
 How to install
 --------------
