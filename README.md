@@ -113,8 +113,8 @@ public class MyClass {
 ```
 
 (Please keep in mind that this may be a restriction as well, in case you want to make your own producer of
-```org.slf4j.Logger``` instances. For this reason, LoggEE can be configured how to produce ```org.slf4j.Logger```.
-see [Configuration](#configuration).)
+```org.slf4j.Logger``` instances. For this reason, LoggEE can be configured how to produce ```org.slf4j.Logger```
+instances. See [Configuration](#configuration).)
 
 Configuration
 -------------
@@ -130,10 +130,10 @@ There are a couple of ways to configure LoggEE:
   - _decisionMethodLoggerBaseName_ - Logger base name for decision methods - Default: __"DECISION"__
       - Setting this to "" (empty string) will make LoggEE use the original logger.
   - _parameterLoggerBaseName_ - Logger base name for parameters of regular methods - Default: __"PARAMETER"__
-      - Setting this to "" (empty string) will make LoggEE use the regular or decision method logger.
+      - Setting this to "" (empty string) will make LoggEE use the regular method logger.
       - Setting both to "" (empty string) will make LoggEE use the original logger.
   - _decisionParameterLoggerBaseName_ - Logger base name for parameters of decision methods - Default: __"PARAMETER"__
-      - Setting this to "" (empty string) will make LoggEE use the regular or decision method logger.
+      - Setting this to "" (empty string) will make LoggEE use the decision method logger.
       - Setting both to "" (empty string) will make LoggEE use the original logger.
   - _booleanMethodLogPolicy_ - How to treat boolean methods - Default: __DECISION__
   - _logMethodParametersAfterCall_ - Log regular method parameters after the call again? - Default: __false__
@@ -152,8 +152,8 @@ Logging at the start and end of method calls are fine but what about the inside 
 can't do much about it by itself, using the Decision Bean Pattern can help you leverage LoggEE's capabilities in logging
 important decisions _inside_ your methods.
 
-How? It's a good practice to wrap any composite expression inside an _if_ statement and extract it into a local method
-call. Simply take another step forward and extract such expressions (no matter how simple they are) into another bean.
+How? It's a good practice to wrap any composite expression inside an _if_ statement and extract it into a local method.
+Simply take another step forward and extract such expressions (no matter how simple they are) into another bean.
 We can call this bean a Decision Bean. This Decision Bean can be annotated with _@Logged_, injected into your original
 class, and now LoggEE will be able to log these decisions taking place inside your method!
 
