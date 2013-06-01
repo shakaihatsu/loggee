@@ -20,10 +20,8 @@ Stacktrace here
 Overview
 --------
 
-LoggEE is a simple yet powerful, light-weight, easy-to-use, highly customizable automatic logging module that can take
-care of the very important yet troublesome task of logging in your Java EE application.
-Usint AOP techniques, with a well designed codebase, it is capable of logging almost anything and everything your
-application may need to be logged.
+LoggEE is a simple, easy-to-use, highly customizable automatic logging module which can significantly lower the number
+of log statements sprinkled throughout the code by automatically logging method calls using AOP techniques.
 
 Using CDI itself, the current implementation of LoggEE supports only other applications that also use CDI.
 LoggEE uses slf4j as the backing logging framework.
