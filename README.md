@@ -94,9 +94,10 @@ Example output:
 Stacktrace here
 ```
 
-The log lines are prefixed with __METHOD_CALL__, __PARAMETER.METHOD_CALL__, __DECISION__ or __PARAMETER.DECISION__,
-depending what is being logged. This is to help configure logging for these kind of logs universally. You can make
-LoggEE to omit this prefixes if you want (see [Configuration](#configuration)).
+The logger names are prefixed with __METHOD_CALL__, __PARAMETER.METHOD_CALL__, __DECISION__ or __PARAMETER.DECISION__,
+depending what is being logged. This is to help configure logging for these kind of logs universally. You can change
+these prefixes, or you can even make LoggEE to omit this prefixes and use the original logger of the class if you want
+(see [Configuration](#configuration)).
 
 Additional features
 -------------------
