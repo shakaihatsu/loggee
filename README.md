@@ -80,7 +80,7 @@ methods differently:
     
 By default, decision methods are logged only after they are called. This behaviour can be changed, telling LoggEE to
 consider a boolean method (or all the boolean methods of a class, depending where you put the _@Logged_ annotation)
-as _"regular"_ (see Configuration).
+as _"regular"_ (see [Configuration](#configuration)).
 
 Example output:
 
@@ -98,7 +98,7 @@ Stacktrace here
 
 The log lines are prefixed with __METHOD_CALL__, __PARAMETER.METHOD_CALL__, __DECISION__ or __PARAMETER.DECISION__,
 depending what is being logged. This is to help configure logging for these kind of logs universally. You can make
-LoggEE to omit this prefixes if you want (see Configuration).
+LoggEE to omit this prefixes if you want (see [Configuration](#configuration)).
 
 Additional features
 -------------------
@@ -116,7 +116,7 @@ public class MyClass {
 
 (Please keep in mind that this may be a restriction as well, in case you want to make your own producer of
 ```org.slf4j.Logger``` instances. For this reason, LoggEE can be configured how to produce ```org.slf4j.Logger```.
-See Configuration.)
+see [Configuration](#configuration).)
 
 Configuration
 -------------
