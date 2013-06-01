@@ -73,7 +73,7 @@ methods differently:
     2. __Parameters__
     3. __End__ of the method, the __return value__ and the __duration__
     4. __Parameters__ again (they may have changed during the method call) - This is optional and OFF by default
-      (see [Configuration](https://github.com/shakaihatsu/loggee#configuration))
+      (see [Configuration](#configuration))
   - Decision methods
     1. __Return value__
     2. __Parameters__
